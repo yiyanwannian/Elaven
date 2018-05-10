@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp">
+
+                <Button
+                    android:id="@+id/but_back"
+                    style="@style/but_title_right"
+                    android:background="@drawable/back" />
+
+                <TextView
+                    android:id="@+id/title"
+                    style="@style/_title_center"
+                    android:layout_width="32dp"
+                    android:text="@string/new_question_title" />
+
+                <Button
+                    android:id="@+id/but_delete"
+                    style="@style/but_title_left"
+                    android:background="@drawable/del" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/answer_title"
+                style="@style/title_edittext"
+                android:minHeight="120dp"
+                android:layout_marginHorizontal="10dp"
+                android:hint="@string/new_item_questionTitle" />
+
+            <LinearLayout
+                android:id="@+id/answer_listView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"></LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/create_answer"
+                    style="@style/title_edittext"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/selector_increase_answer" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/save"
+                    style="@style/title_edittext"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/selector_save" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>

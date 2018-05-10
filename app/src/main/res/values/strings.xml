@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Research</string>
+    <string name="A">A</string>
+    <string name="B">B</string>
+    <string name="C">C</string>
+    <string name="D">D</string>
+    <string name="new_question">创建问题</string>
+    <string name="new_questionTitle">Title</string>
+    <string name="new_item_questionTitle">Title</string>
+    <string name="new_answer">创建选项</string>
+    <string name="save">保存</string>
+    <string name="new_researcher">创建新问卷</string>
+    <string name="_searcher">Search For some title</string>
+    <string name="new_question_title">问题名称</string>
+    <string name="alert_addtitle">请添加标题!</string>
+    <string name="alert_addanswer">请添加选项！</string>
+</resources>

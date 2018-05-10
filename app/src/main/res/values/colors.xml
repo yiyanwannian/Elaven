@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorRed">#ff0000</color>
+    <color name="colorGray">#666666</color>
+    <color name="colorblack">#000000</color>
+    <color name="m_pale_grey">#f2f2f7</color><!--淡灰色-->
+    <color name="m_warm_grey">#777777</color>
+    <color name="m_item_text">#535353</color>
+    <color name="text_blue">#194783</color>
+    <color name="text_green">#66AC7F</color>
+    <color name="text_brown">#AB545A</color>
+    <color name="text_black_33">#333333</color>
+    <color name="text_black">#7B7B7B</color>
+    <color name="text_black_A2">#A2A2A2</color>
+    <color name="text_gray">#ADADAD</color>
+    <color name="m_silver">#c8c8cc</color><!--浅灰色-->
+    <color name="background_gray">#EFEFEF</color>
+    <color name="background_edittextview">#F0ECE8</color>
+    <color name="bac_green_transparent">#1166AC7F</color><!-- 半透明绿色 -->
+
+    <!-- 灰色字体字体 -->
+    <color name="white_transport">#DDFFFFFF</color>
+    <color name="_orange">#FAAEAA</color>
+    <color name="_orange0">#FDB295</color>
+    <color name="_orange1">#FDA27E</color>
+    <color name="_orange2">#F8938D</color>
+    <color name="_orange3">#F67B74</color>
+    <color name="_orange4">#F56e66</color>
+    <color name="_orange5">#E46057</color>
+    <color name="_orange6">#EB5648</color>
+    <color name="_orange7">#F35249</color>
+
+    <!-- item背景色 -->
+
+
+    <color name="background_black_transparent">#BB000000</color>
+    <color name="recom_title">#82C3AF</color>
+    <!-- 提示框紫色背景色 -->
+    <color name="background_tip_purple">#DCC4FF</color>
+    <!-- 下划线颜色 -->
+    <color name="line_title">#DDDDD9</color>
+    <color name="line_item">#EBEBED</color>
+</resources>

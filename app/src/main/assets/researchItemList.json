@@ -1,0 +1,69 @@
+{
+  "question_list": [
+    {
+      "quesitionId": "Researchitem",
+      "type": 0,
+      "title": "Researchitem",
+      "content": "爸爸，你会唱小星星么？",
+      "answers": [
+        {
+          "questionId": "lastejfdlsaf",
+          "answerId": "answerIdIdIdId",
+          "answer_content": "不会，滚"
+        }
+      ],
+      "que_state": 0
+    },
+    {
+      "quesitionId": "Researchitema",
+      "type": 0,
+      "title": "Researchitem",
+      "content": "爸爸，你会唱小星星么？",
+      "answers": [
+        {
+          "isCheck": true,
+          "questionId": "lastejfdlsaf",
+          "answerId": "answerIdIdIdId",
+          "answer_content": "不会，滚"
+        }
+      ],
+      "que_state": 0
+    },
+    {
+      "quesitionId": "Researchitemb",
+      "type": 0,
+      "title": "Researchitem",
+      "content": "爸爸，你会唱小星星么？",
+      "answers": [
+        {
+          "isCheck": true,
+          "questionId": "lastejfdlsaf",
+          "answerId": "answerIdIdIdId",
+          "answer_content": "不会，滚"
+        }
+      ],
+      "que_state": 0
+    },
+    {
+      "quesitionId": "Researchitemv",
+      "type": 0,
+      "title": "Researchitema",
+      "content": "爸爸，你会唱小星星么？",
+      "answers": [
+        {
+          "isCheck": true,
+          "questionId": "lastejfdlsaf",
+          "answerId": "answerIdIdIdId",
+          "answer_content": "不会，滚"
+        },
+        {
+          "isCheck": false,
+          "questionId": "lastejfdlsaf",
+          "answerId": "answerIdIdIdId",
+          "answer_content": "不会，滚"
+        }
+      ],
+      "que_state": 0
+    }
+  ]
+}
