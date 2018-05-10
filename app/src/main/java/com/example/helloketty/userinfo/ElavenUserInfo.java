@@ -19,7 +19,45 @@ import java.io.File;
 public class ElavenUserInfo {
 
     public static String TAG = "Elaven";
+    public static String TOKENID = "";
+    private Context context;
+    private String userName;
+    private String userEmail;
+    private String tel;
+    private String address;
 
+    public ElavenUserInfo(Context context, String userName, String userEmail, String tel, String address) {
+        this.context = context;
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.tel = tel;
+        this.address = address;
+        try {
+            File file = context.getFilesDir();
+            String path = file.getAbsolutePath();
+            //String path = context.getClass().getResource("");
+
+            BootstrapOptions options = new BootstrapOptions(path);
+            CarrierFriendHandler handler = new CarrierFriendHandler();
+
+            //1.1获得Carrier的实例
+            Carrier carrierInst = Carrier.getInstance(options, handler);
+
+            //1.2获得Carrier的地址
+            String carrierAddr = carrierInst.getAddress();
+            Log.i(TAG, "address: " + carrierAddr);
+
+            //1.3获得Carrier的用户ID
+            String carrierUserID = carrierInst.getUserId();
+            Log.i(TAG, "userID: " + carrierUserID);
+
+            TOKENID = carrierAddr;
+        } catch (ElastosException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
     public  String createUserId() {
 
         //1.初始化实例，获得相关信息
@@ -52,7 +90,7 @@ public class ElavenUserInfo {
 
         return  "";
     }
-
+*/
     static class CarrierFriendHandler extends AbstractCarrierHandler {
         Synchronizer synch = new Synchronizer();
         String from;

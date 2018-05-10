@@ -31,7 +31,7 @@ public class MainActivity extends Activity {
                     listView_searchresult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent = new Intent(getBaseContext(), ReSearchResultActivity.class);
+                            Intent intent = new Intent(getBaseContext(), ResearchResultActivity.class);
                             intent.putExtra("itemInfo", gson.toJson(the_research_list.getLists().get(position)));
                             startActivity(intent);
                         }

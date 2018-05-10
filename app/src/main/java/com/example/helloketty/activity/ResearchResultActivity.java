@@ -20,7 +20,7 @@ import com.google.gson.Gson;
  * Created by HelloKetty on 2018/5/3.
  */
 
-public class ReSearchResultActivity extends Activity{
+public class ResearchResultActivity extends Activity{
     private String searchLists;
     private ListView listView_searchresult;
     private TextView txt_title;
