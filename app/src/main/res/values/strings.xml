@@ -1,17 +1,36 @@
 <resources>
-    <string name="app_name">Research</string>
+    <string name="app_name">伊来问</string>
     <string name="A">A</string>
     <string name="B">B</string>
     <string name="C">C</string>
     <string name="D">D</string>
     <string name="new_question">创建问题</string>
     <string name="new_questionTitle">Title</string>
+    <string name="new_question_title">Title</string>
     <string name="new_item_questionTitle">Title</string>
-    <string name="new_answer">创建选项</string>
-    <string name="save">保存</string>
     <string name="new_researcher">创建新问卷</string>
     <string name="_searcher">Search For some title</string>
-    <string name="new_question_title">问题名称</string>
     <string name="alert_addtitle">请添加标题!</string>
     <string name="alert_addanswer">请添加选项！</string>
+    <string name="new_answer">创建选项</string>
+    <string name="save">保存</string>
+
+
+    <!--Welcome Page-->
+    <string name="welcome_title">伊来问</string>
+    <string name="welcome_login">登录</string>
+    <string name="welcome_register">注册</string>
+
+    <!--Register Page-->
+    <string name="register_name">姓名</string>
+    <string name="register_userid">用户</string>
+    <string name="register_email">邮箱</string>
+    <string name="register_region">区域</string>
+    <string name="register_phonenumber">手机</string>
+    <string name="register_gender">性别</string>
+    <string name="register_gender_male">男</string>
+    <string name="register_gender_female">女</string>
+    <string name="register_address">地址</string>
+
+    <string name="register_register">注册</string>
 </resources>
