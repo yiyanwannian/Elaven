@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.view.LayoutInflaterCompat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -32,8 +31,8 @@ public class MainActivity extends Activity {
                     listView_searchresult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent = new Intent(getBaseContext(), ReSearchResuleActivity.class);
-                            intent.putExtra("pid", gson.toJson(the_research_list.getLists().get(position)));
+                            Intent intent = new Intent(getBaseContext(), ReSearchResultActivity.class);
+                            intent.putExtra("itemInfo", gson.toJson(the_research_list.getLists().get(position)));
                             startActivity(intent);
                         }
                     });

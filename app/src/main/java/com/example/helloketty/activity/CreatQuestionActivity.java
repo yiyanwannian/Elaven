@@ -31,7 +31,7 @@ import javax.xml.datatype.Duration;
  * Created by HelloKetty on 2018/5/6.
  */
 
-public class CreatQuestion extends Activity {
+public class CreatQuestionActivity extends Activity {
     private TextView buttonCreatAnswerItem;
     private TextView save;
     private EditText ed_Title;
@@ -107,6 +107,7 @@ public class CreatQuestion extends Activity {
             answer_list.addView(item);
             answer_list.refreshDrawableState();
             Answer answerItem = new Answer();
+            answerItem.setAnswer_content(ANSWERLIST.get(count));
             answers.add(answerItem);
         }
     }
