@@ -26,7 +26,7 @@ public class WelcomeActivity extends Activity{
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
-        setContentView(R.layout.activity_welcomepage);
+        setContentView(R.layout.welcome);
         handler.sendEmptyMessageDelayed(0x01, 2000);
 
     }

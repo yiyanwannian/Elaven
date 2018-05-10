@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.RegisterActivity"></activity>
         <activity android:name=".activity.ReSearchResultActivity"></activity>
         <activity android:name=".activity.CreatResearchActivity"></activity>
         <activity android:name=".activity.CreatQuestionActivity"></activity>
