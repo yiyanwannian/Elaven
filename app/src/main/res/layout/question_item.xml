@@ -20,21 +20,5 @@
         android:layout_height="match_parent"
         android:layout_marginHorizontal="20dp"
         android:orientation="vertical">
-
-        <include
-            android:id="@+id/answer_itembar"
-            layout="@layout/answer_item" />
-
-        <include
-            android:id="@+id/answer_itembar1"
-            layout="@layout/answer_item" />
-
-        <include
-            android:id="@+id/answer_itembar2"
-            layout="@layout/answer_item" />
-
-        <include
-            android:id="@+id/answer_itembar3"
-            layout="@layout/answer_item" />
     </LinearLayout>
 </LinearLayout>

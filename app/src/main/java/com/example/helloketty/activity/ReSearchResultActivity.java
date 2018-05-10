@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.helloketty.R;
 import com.example.helloketty.adapter.ResearchItemListAdapter;
 import com.example.helloketty.entity.QuestionListBean;
+import com.example.helloketty.entity.ResearchList;
 import com.example.helloketty.util.JsonFileLoader;
 import com.google.gson.Gson;
 
@@ -19,11 +20,11 @@ import com.google.gson.Gson;
  * Created by HelloKetty on 2018/5/3.
  */
 
-public class ReSearchResuleActivity extends Activity{
+public class ReSearchResultActivity extends Activity{
     private String searchLists;
     private ListView listView_searchresult;
     private TextView txt_title;
-    private QuestionListBean the_Question_list;
+    private ResearchList the_Question_list;
     private final static int MY_MESSAGE = 0X01;
     Gson gson = new Gson();
 
@@ -32,7 +33,7 @@ public class ReSearchResuleActivity extends Activity{
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case MY_MESSAGE:
-                    ResearchItemListAdapter messageAdapter = new ResearchItemListAdapter(getBaseContext(), the_Question_list.getList());
+                    ResearchItemListAdapter messageAdapter = new ResearchItemListAdapter(getBaseContext(), the_Question_list.getQuesitions());
                     listView_searchresult.setAdapter(messageAdapter);
                     listView_searchresult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -55,8 +56,9 @@ public class ReSearchResuleActivity extends Activity{
     }
 
     private void initDate() {
+        String infoString = getIntent().getStringExtra("itemInfo");
         String jsonResult = JsonFileLoader.getResearchItemListJson(this.getBaseContext());
-        the_Question_list = gson.fromJson(jsonResult, QuestionListBean.class);
+        the_Question_list = gson.fromJson(infoString, ResearchList.class);
         // 加载布局
         initView();
     }
@@ -64,6 +66,7 @@ public class ReSearchResuleActivity extends Activity{
     private void initView( ) {
         listView_searchresult = (ListView) findViewById(R.id.listView_01);
         txt_title = (TextView) findViewById(R.id.txt_title);
+        txt_title.setText(the_Question_list.getTitle());
         handler.sendEmptyMessage(MY_MESSAGE);
     }
 }
