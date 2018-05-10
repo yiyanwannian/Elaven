@@ -66,11 +66,9 @@ public class CreatQuestionActivity extends Activity {
             public void onClick(View v) {
                 String titleName =  ed_Title.getText().toString();
                 if(titleName == null || titleName == "" || titleName == "null"){
-                    Toast.makeText(v.getContext(),v.getContext().getString(R.string.alert_addtitle), Toast.LENGTH_SHORT);
                     return;
                 }
                 if(answers.size() == 0){
-                    Toast.makeText(v.getContext(),v.getContext().getString(R.string.alert_addanswer), Toast.LENGTH_SHORT);
                     return;
                 }
                 Quesition quesition = new Quesition("aaaa", titleName, QuestionType.SINGLEANSWER, titleName, answers);
