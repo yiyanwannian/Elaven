@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.helloketty.R;
+import com.example.helloketty.userinfo.ElavenUserInfoHelper;
+import com.example.helloketty.util.Utils;
 
 /**
  * Created by Houfa.Zhou on 2018/5/10.
@@ -38,8 +40,8 @@ public class WelcomeActivity extends Activity{
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.welcome);
-        //handler.sendEmptyMessageDelayed(0x01, 2000);
 
+        Log.i(Utils.log_page_tag,"Arrive welcome page");
         initPage();
     }
 
@@ -65,12 +67,16 @@ public class WelcomeActivity extends Activity{
         register_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //To do
-                Log.i(log_tag,"Clicked register button");
+                createUserIdAndAddress();
                 handler.sendEmptyMessageDelayed(0x01, 2000);
             }
         });
+    }
 
+    private void createUserIdAndAddress (){
+        ElavenUserInfoHelper helper = new ElavenUserInfoHelper(WelcomeActivity.this);
+        String userid = helper.getUserid();
+        String address = helper.getAddress();
     }
 
 

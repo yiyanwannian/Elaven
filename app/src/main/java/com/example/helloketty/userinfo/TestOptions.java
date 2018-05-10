@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 import org.elastos.carrier.Carrier.Options;
 
-public class BootstrapOptions extends Options {
-    public BootstrapOptions(String path) {
+public class TestOptions extends Options {
+    public TestOptions(String path) {
         super();
 
         File file = new File(path);

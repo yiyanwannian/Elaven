@@ -2,6 +2,7 @@ package com.example.helloketty.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
@@ -11,6 +12,7 @@ import android.widget.RadioButton;
 import com.example.helloketty.R;
 import com.example.helloketty.entity.ElavenUser;
 import com.example.helloketty.util.FileUtil;
+import com.example.helloketty.util.Utils;
 
 public class RegisterActivity extends Activity {
 
@@ -21,13 +23,14 @@ public class RegisterActivity extends Activity {
     private TextView register_region;
     private TextView register_address;
 
-    private Button register_register;
+    private Button register_save;
 
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.register);
 
+        Log.i(Utils.log_page_tag,"Arrive register page");
         initPage();
     }
 
@@ -36,9 +39,12 @@ public class RegisterActivity extends Activity {
     }
 
     private void initRegisterButton() {
-        register_register.setOnClickListener(new View.OnClickListener() {
+        Log.i(Utils.log_info_tag,"before register button clicked");
+        register_save = (Button) findViewById(R.id.register_save);
+        register_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i(Utils.log_info_tag,"register button clicked");
                 initUserInfo();
             }
         });
