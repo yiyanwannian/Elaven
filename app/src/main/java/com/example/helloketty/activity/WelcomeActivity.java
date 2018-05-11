@@ -28,23 +28,6 @@ import static com.example.helloketty.util.Utils.default_file_directory;
 
 public class WelcomeActivity extends Activity{
 
-    private Button login_button;
-    private Button register_button;
-
-    private String log_tag = "Test Info";
-
-    Handler handler = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-            //Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
-            Intent intent=new Intent(WelcomeActivity.this, RegisterActivity.class);
-            startActivity(intent);
-            finish();
-        }
-
-    };
-
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);

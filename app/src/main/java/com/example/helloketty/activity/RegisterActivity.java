@@ -47,7 +47,7 @@ public class RegisterActivity extends Activity {
     }
 
     private void initPage() {
-        if (elaven_user == null){
+        if (elaven_user != null){
             Log.i(Utils.log_info_tag,"elaven_user data get failed");
         }
 
@@ -93,7 +93,6 @@ public class RegisterActivity extends Activity {
             ((RadioButton) findViewById(R.id.register_gender_male)).setChecked(false);
             ((RadioButton) findViewById(R.id.register_gender_female)).setChecked(true);
         }
-
     }
 
     private void initRegisterSaveButton() {
@@ -124,7 +123,7 @@ public class RegisterActivity extends Activity {
         elaven_user.setEmail(register_email.getText().toString());
         elaven_user.setRegion(register_region.getText().toString());
 
-        FileUtil.saveFile(elaven_user.toString(), Utils.userinfo_file_name);
+        //FileUtil.saveFile(elaven_user.toString(), Utils.userinfo_file_name);
     }
 
 
