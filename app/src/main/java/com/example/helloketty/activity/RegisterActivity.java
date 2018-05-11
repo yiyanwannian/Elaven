@@ -1,6 +1,7 @@
 package com.example.helloketty.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,15 +14,17 @@ import com.example.helloketty.R;
 import com.example.helloketty.entity.ElavenUser;
 import com.example.helloketty.util.FileUtil;
 import com.example.helloketty.util.Utils;
+import com.google.gson.Gson;
 
 public class RegisterActivity extends Activity {
+
+    private  ElavenUser elaven_user;
 
     private TextView register_name;
     private RadioButton register_gender;
     private TextView register_phonenumber;
     private TextView register_email;
     private TextView register_region;
-    private TextView register_address;
 
     private Button register_save;
 
@@ -31,14 +34,33 @@ public class RegisterActivity extends Activity {
         setContentView(R.layout.register);
 
         Log.i(Utils.log_page_tag,"Arrive register page");
+
+        Gson gson = new Gson();
+        Bundle bundle = this.getIntent().getExtras();
+        String userJson = bundle.getString("userJson");
+        elaven_user = gson.fromJson(userJson, ElavenUser.class);
+
         initPage();
     }
 
     private void initPage() {
-        initRegisterButton();
+        if (elaven_user.getName() == null || elaven_user.getName().equals("")) {
+            initRegisterSaveButton();
+        }
+
+        intentToWelcome(elaven_user);
     }
 
-    private void initRegisterButton() {
+    private void intentToWelcome(ElavenUser elaven_user) {
+        Bundle bundle = new Bundle();
+        bundle.putString("userJson", elaven_user.toString());
+        Intent intent=new Intent(RegisterActivity.this, MainActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        finish();
+    }
+
+    private void initRegisterSaveButton() {
         Log.i(Utils.log_info_tag,"before register button clicked");
         register_save = (Button) findViewById(R.id.register_save);
         register_save.setOnClickListener(new View.OnClickListener() {
@@ -58,17 +80,15 @@ public class RegisterActivity extends Activity {
         register_phonenumber = (TextView) findViewById(R.id.register_phonenumber_text);
         register_email = (TextView) findViewById(R.id.register_email_text);
         register_region = (TextView) findViewById(R.id.register_region_text);
-        register_address = (TextView) findViewById(R.id.register_address_text);
 
-        ElavenUser user = new ElavenUser();
-        user.setName(register_name.getText().toString());
-        user.setGender(register_gender.getText().toString());
-        user.setPhone_number(register_phonenumber.getText().toString());
-        user.setEmail(register_email.getText().toString());
-        user.setRegion(register_region.getText().toString());
-        user.setAddress(register_address.getText().toString());
 
-        FileUtil.saveFile(user.toString(),"ElavenUser.txt");
+        elaven_user.setName(register_name.getText().toString());
+        elaven_user.setGender(register_gender.getText().toString());
+        elaven_user.setPhone_number(register_phonenumber.getText().toString());
+        elaven_user.setEmail(register_email.getText().toString());
+        elaven_user.setRegion(register_region.getText().toString());
+
+        FileUtil.saveFile(elaven_user.toString(), Utils.userinfo_file_name);
     }
 
 

@@ -7,15 +7,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
-public class FileUtil {
+import static com.example.helloketty.util.Utils.default_file_directory;
 
-    public static File DEFAULT_FILE_DIRECTORY = Environment.getExternalStorageDirectory();
+public class FileUtil {
 
     public static void saveFile(String str, String fileName) {
 
         try {
 
-            File file = new File(DEFAULT_FILE_DIRECTORY, fileName);
+            File file = new File(default_file_directory, fileName);
 
             if (file.exists()) {
                 file.delete();
@@ -34,7 +34,7 @@ public class FileUtil {
     public static void deletefile(String fileName) {
         try {
 
-            File file = new File(DEFAULT_FILE_DIRECTORY, fileName);
+            File file = new File(default_file_directory, fileName);
             file.delete();
         } catch (Exception e) {
             e.printStackTrace();
@@ -44,7 +44,7 @@ public class FileUtil {
     public static String getFile(String fileName) {
         try {
 
-            File file = new File(DEFAULT_FILE_DIRECTORY,fileName);
+            File file = new File(default_file_directory,fileName);
             FileInputStream fis = new FileInputStream(file);
 
             byte[] b = new byte[1024];

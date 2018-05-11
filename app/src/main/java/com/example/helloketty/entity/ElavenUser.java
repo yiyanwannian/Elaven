@@ -1,7 +1,6 @@
 package com.example.helloketty.entity;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.gson.Gson;
 
 public class ElavenUser {
 
@@ -77,7 +76,11 @@ public class ElavenUser {
 
     @Override
     public String toString() {
+        Gson gson = new Gson();
+        String json = gson.toJson(this);
+        return json;
 
+        /*
         JSONObject json = new JSONObject();
 
         try {
@@ -94,6 +97,8 @@ public class ElavenUser {
             e.printStackTrace();
         }
 
+
         return json.toString();
+        */
     }
 }
