@@ -15,12 +15,6 @@
     <string name="new_answer">创建选项</string>
     <string name="save">保存</string>
 
-
-    <!--Welcome Page-->
-    <string name="welcome_title">伊来问</string>
-    <string name="welcome_login">登录</string>
-    <string name="welcome_register">注册</string>
-
     <!--Register Page-->
     <string name="register_name">姓名</string>
     <string name="register_userid">用户</string>
@@ -32,5 +26,5 @@
     <string name="register_gender_female">女</string>
     <string name="register_address">地址</string>
 
-    <string name="register_register">注册</string>
+    <string name="register_save">保存</string>
 </resources>

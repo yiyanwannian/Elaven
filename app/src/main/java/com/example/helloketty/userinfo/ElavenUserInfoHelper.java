@@ -16,62 +16,53 @@ import com.google.gson.Gson;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 
 import java.io.File;
 
-public class ElavenUserInfo {
-    public static Gson gson = new Gson();
-    public static String TAG = "Elaven";
-    public static String TOKENID = "";
+public class ElavenUserInfoHelper {
 
-    public  static String createUserId(Context context) {
+    private Context context;
+    private String userid;
+    private String address;
 
-        //1.初始化实例，获得相关信息
+    public String getUserid() {
+        return userid;
+    }
+
+
+    public String getAddress() {
+        return address;
+    }
+
+    public ElavenUserInfoHelper(Context context) {
+        this.context = context;
+
         try {
+            File file = context.getFilesDir();
+            String path = file.getAbsolutePath();
 
-            //File file=((Context)this).getFilesDir();
-            //String path=file.getAbsolutePath();
-            //String path = this.getClass().getResource("");
-            String  path = "";
-
-            BootstrapOptions options = new BootstrapOptions(path);
-            CarrierFriendHandler handler = new CarrierFriendHandler();
+            TestOptions options = new TestOptions(path);
+            TestHandler handler = new TestHandler();
 
             //1.1获得Carrier的实例
+
             Carrier carrierInst = Carrier.getInstance(options, handler);
 
             //1.2获得Carrier的地址
-            String carrierAddr = carrierInst.getAddress();
-            Log.i(TAG,"address: " + carrierAddr);
+            address = carrierInst.getAddress();
+            Log.i(Utils.log_info_tag, "address: " + address);
 
             //1.3获得Carrier的用户ID
-            String carrierUserID = carrierInst.getUserId();
-            Log.i(TAG,"userID: " + carrierUserID);
-
-            return carrierAddr;
+            userid = carrierInst.getUserId();
+            Log.i(Utils.log_info_tag, "userID: " + userid);
 
         } catch (ElastosException e) {
             e.printStackTrace();
         }
-
-        return  "";
     }
 
-    public static String getUserID(Context context){
+    static class TestHandler extends AbstractCarrierHandler {
 
-//        String jsonUserID = JsonFileLoader.getUserIDJson(context);
-//        ElavenUser elavenUser = gson.fromJson(jsonUserID, ElavenUser.class);
-//        if(elavenUser.getUser_id() == ""){
-//            elavenUser.setUser_id(createUserId(context));
-//        }
-
-
-        return "";
-    }
-
-    static class CarrierFriendHandler extends AbstractCarrierHandler {
         Synchronizer synch = new Synchronizer();
         String from;
         ConnectionStatus friendStatus;

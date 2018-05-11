@@ -1,22 +1,31 @@
 package com.example.helloketty.entity;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.gson.Gson;
 
 public class ElavenUser {
-    private String name = "";
+    private String name;
 
-    private String user_id = "";
+    private String user_id;
 
-    private String gender = "";
+    private String gender;
 
-    private String phone_number = "";
+    private String phone_number;
 
-    private String email = "";
+    private String email;
 
-    private String region = "";
+    private String region;
 
-    private String address = "";
+    private String address;
+
+    public  ElavenUser(){
+        name = "";
+        user_id = "";
+        gender = "";
+        phone_number = "";
+        email = "";
+        region = "";
+        address = "";
+    }
 
     public String getName() {
         return name;
@@ -76,7 +85,11 @@ public class ElavenUser {
 
     @Override
     public String toString() {
+        Gson gson = new Gson();
+        String json = gson.toJson(this);
+        return json;
 
+        /*
         JSONObject json = new JSONObject();
 
         try {
@@ -93,6 +106,8 @@ public class ElavenUser {
             e.printStackTrace();
         }
 
+
         return json.toString();
+        */
     }
 }

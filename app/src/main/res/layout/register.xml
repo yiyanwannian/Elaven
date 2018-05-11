@@ -19,6 +19,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:text="@string/register_userid" />
+
+            <EditText
+                android:id="@+id/register_userid_text"
+                android:layout_width="240dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:inputType="none" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
                 android:text="@string/register_name" />
 
             <EditText
@@ -28,6 +48,27 @@
                 android:gravity="center"
                 android:text=""
                 android:inputType="textPersonName" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/register_address" />
+
+            <EditText
+                android:id="@+id/register_address_text"
+                android:layout_width="240dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:inputType="none"
+                android:text="" />
 
         </TableRow>
 
@@ -128,27 +169,6 @@
 
         </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="@string/register_address" />
-
-            <EditText
-                android:id="@+id/register_address_text"
-                android:layout_width="240dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:inputType="text"
-                android:text=""/>
-
-        </TableRow>
-
     </TableLayout>
 
     <LinearLayout
@@ -157,11 +177,11 @@
         android:gravity="center">
 
         <Button
-            android:id="@+id/register_register"
+            android:id="@+id/register_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/register_register" />
+            android:text="@string/register_save" />
 
     </LinearLayout>
 
