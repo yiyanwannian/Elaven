@@ -123,7 +123,7 @@ public class RegisterActivity extends Activity {
         elaven_user.setEmail(register_email.getText().toString());
         elaven_user.setRegion(register_region.getText().toString());
 
-        //FileUtil.saveFile(elaven_user.toString(), Utils.userinfo_file_name);
+        FileUtil.saveFile(elaven_user.toString(), Utils.userinfo_file_name);
     }
 
 
