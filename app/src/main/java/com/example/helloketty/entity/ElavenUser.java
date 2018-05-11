@@ -3,7 +3,6 @@ package com.example.helloketty.entity;
 import com.google.gson.Gson;
 
 public class ElavenUser {
-
     private String name = "";
 
     private String user_id = "";

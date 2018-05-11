@@ -6,8 +6,13 @@ import org.elastos.carrier.ConnectionStatus;
 import org.elastos.carrier.UserInfo;
 
 import  org.elastos.carrier.exceptions.ElastosException;
+
+import com.example.helloketty.entity.ElavenUser;
+import com.example.helloketty.entity.ResearchList;
+import com.example.helloketty.util.JsonFileLoader;
 import  com.example.helloketty.util.Synchronizer;
 import  com.example.helloketty.util.Utils;
+import com.google.gson.Gson;
 
 import android.content.Context;
 import android.util.Log;
@@ -23,6 +28,7 @@ public class ElavenUserInfoHelper {
     public String getUserid() {
         return userid;
     }
+
 
     public String getAddress() {
         return address;
@@ -56,6 +62,7 @@ public class ElavenUserInfoHelper {
     }
 
     static class TestHandler extends AbstractCarrierHandler {
+
         Synchronizer synch = new Synchronizer();
         String from;
         ConnectionStatus friendStatus;
