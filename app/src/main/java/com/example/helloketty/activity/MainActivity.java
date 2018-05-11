@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -13,6 +14,7 @@ import com.example.helloketty.R;
 import com.example.helloketty.adapter.ResearchResultAdapter;
 import com.example.helloketty.entity.ResearchListBean;
 import com.example.helloketty.util.JsonFileLoader;
+import com.example.helloketty.util.Utils;
 import com.google.gson.Gson;
 
 public class MainActivity extends Activity {
@@ -47,6 +49,9 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Log.i(Utils.log_page_tag,"Arrive main page");
+
         // 初始化数据
         initDate();
         // 提交按钮

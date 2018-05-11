@@ -3,19 +3,29 @@ package com.example.helloketty.entity;
 import com.google.gson.Gson;
 
 public class ElavenUser {
-    private String name = "";
+    private String name;
 
-    private String user_id = "";
+    private String user_id;
 
-    private String gender = "";
+    private String gender;
 
-    private String phone_number = "";
+    private String phone_number;
 
-    private String email = "";
+    private String email;
 
-    private String region = "";
+    private String region;
 
-    private String address = "";
+    private String address;
+
+    public  ElavenUser(){
+        name = "";
+        user_id = "";
+        gender = "";
+        phone_number = "";
+        email = "";
+        region = "";
+        address = "";
+    }
 
     public String getName() {
         return name;
