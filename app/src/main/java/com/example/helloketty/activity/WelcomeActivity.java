@@ -107,13 +107,13 @@ public class WelcomeActivity extends Activity{
             user.setUser_id(datas[0]);
             user.setAddress(datas[1]);
         }
-
-        Gson gson = new Gson();
-        String data = FileUtil.getFile(Utils.userinfo_file_name);
-        user = gson.fromJson(data, ElavenUser.class);
+        else {
+            Gson gson = new Gson();
+            String data = FileUtil.getFile(Utils.userinfo_file_name);
+            user = gson.fromJson(data, ElavenUser.class);
+        }
 
         return user;
-
     }
 
     private String createUserIdAndAddress (){

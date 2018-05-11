@@ -48,10 +48,10 @@ public class RegisterActivity extends Activity {
             initRegisterSaveButton();
         }
 
-        intentToWelcome(elaven_user);
+        intentToMain(elaven_user);
     }
 
-    private void intentToWelcome(ElavenUser elaven_user) {
+    private void intentToMain(ElavenUser elaven_user) {
         Bundle bundle = new Bundle();
         bundle.putString("userJson", elaven_user.toString());
         Intent intent=new Intent(RegisterActivity.this, MainActivity.class);
