@@ -33,10 +33,12 @@ public class CreatResearchActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == MESSAGECODE) {
-            String result = data.getExtras().getString("data");
-            Quesition questionItem =  gson.fromJson(result, Quesition.class);
-            questions.add(questionItem);
-            adapter.notifyDataSetChanged();
+            if(data != null){
+                String result = data.getExtras().getString("data");
+                Quesition questionItem =  gson.fromJson(result, Quesition.class);
+                questions.add(questionItem);
+                adapter.notifyDataSetChanged();
+            }
         }
 
 

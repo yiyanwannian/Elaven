@@ -4,7 +4,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ElavenUser {
-
     private String name = "";
 
     private String user_id = "";

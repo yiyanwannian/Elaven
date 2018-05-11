@@ -6,8 +6,13 @@ import org.elastos.carrier.ConnectionStatus;
 import org.elastos.carrier.UserInfo;
 
 import  org.elastos.carrier.exceptions.ElastosException;
+
+import com.example.helloketty.entity.ElavenUser;
+import com.example.helloketty.entity.ResearchList;
+import com.example.helloketty.util.JsonFileLoader;
 import  com.example.helloketty.util.Synchronizer;
 import  com.example.helloketty.util.Utils;
+import com.google.gson.Gson;
 
 import android.content.Context;
 import android.util.Log;
@@ -17,10 +22,11 @@ import android.widget.Button;
 import java.io.File;
 
 public class ElavenUserInfo {
-
+    public static Gson gson = new Gson();
     public static String TAG = "Elaven";
+    public static String TOKENID = "";
 
-    public  String createUserId() {
+    public  static String createUserId(Context context) {
 
         //1.初始化实例，获得相关信息
         try {
@@ -51,6 +57,18 @@ public class ElavenUserInfo {
         }
 
         return  "";
+    }
+
+    public static String getUserID(Context context){
+
+//        String jsonUserID = JsonFileLoader.getUserIDJson(context);
+//        ElavenUser elavenUser = gson.fromJson(jsonUserID, ElavenUser.class);
+//        if(elavenUser.getUser_id() == ""){
+//            elavenUser.setUser_id(createUserId(context));
+//        }
+
+
+        return "";
     }
 
     static class CarrierFriendHandler extends AbstractCarrierHandler {
