@@ -49,6 +49,7 @@ public class MainActivity extends Activity {
     private EditText editTeext;
     private List<FriendInfo> friends;
     private String resultMessage = "";
+    private FriendInfo friendInfo;
 
     Carrier carrierInst = null;
     String carrierAddr = null;
@@ -129,7 +130,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 try {
-                    carrierInst.addFriend("3XRrjAMXF7ga66bZSKWRUVmJm73hE4ZLA89Tg5L3socKRUxipofQ", "auto-accepted!");
+                    carrierInst.addFriend("DNChv9BsivVSEcKFGxone3tyrfN6cDLefskxw81kKvBscRVYqeZs", "auto-accepted!");
                 } catch (ElastosException e) {
                     e.printStackTrace();
                 }
@@ -138,17 +139,31 @@ public class MainActivity extends Activity {
     }
 
     class MainChatObserver implements IChatObserver {
-
         @Override
-        public void receiveMessage(String message) {
-            resultMessage = message;
+        public void receiveFriendMessage(String fromId, String message) {
+            resultMessage = fromId;
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(MainActivity.this, resultMessage, Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "来自 ：" + resultMessage + "的消息！", Toast.LENGTH_LONG).show();
                 }
             });
+        }
 
+        @Override
+        public void receiveFriendRequest(String fromId, UserInfo info, String hello) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(MainActivity.this, "朋友添加成功！", Toast.LENGTH_LONG).show();
+                    try {
+                        friends = carrierInst.getFriends();
+                        handler.sendEmptyMessage(MY_MESSAGE);
+                    } catch (ElastosException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
     }
 

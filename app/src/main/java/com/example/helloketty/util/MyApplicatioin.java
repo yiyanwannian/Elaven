@@ -8,6 +8,8 @@ import com.example.helloketty.observer.ConcreteChatObserverable;
 import com.example.helloketty.observer.IChatObserver;
 import com.example.helloketty.observer.IChatObserverable;
 
+import org.elastos.carrier.UserInfo;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,8 +65,11 @@ public class MyApplicatioin extends Application {
         }
     }
 
-    public void notifyChatObject (String message) {
-        iChatObserverable.notifyChatObject(message);
+    public void onMyFriendMessage (String fromId, String message) {
+        iChatObserverable.onMyFriendMessage(fromId, message);
+    }
+    public void onMyFriendRequest (String fromId, UserInfo info, String hello) {
+        iChatObserverable.onMyFriendRequest(fromId, info, hello);
     }
 
     public String getUserID() {

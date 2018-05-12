@@ -106,6 +106,7 @@ public class ElavenUserInfoHelper {
             try {
 
                 if (hello.equals("auto-accepted")) {
+                    MyApplicatioin.getInstance().onMyFriendRequest(userId, info, hello);
                     carrier.AcceptFriend(userId);
                 }
             } catch (Exception e) {
@@ -118,7 +119,7 @@ public class ElavenUserInfoHelper {
         public void onFriendMessage(Carrier carrier,String fromId, String message) {
 
             Log.i(CALLBACK,"address:" + fromId + "connection changed to: " + message);
-            MyApplicatioin.getInstance().notifyChatObject(message);
+            MyApplicatioin.getInstance().onMyFriendMessage(fromId, message);
         }
 
     }

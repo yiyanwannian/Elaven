@@ -24,6 +24,7 @@ import com.google.gson.Gson;
 
 
 import org.elastos.carrier.Carrier;
+import org.elastos.carrier.UserInfo;
 import org.elastos.carrier.exceptions.ElastosException;
 
 import java.util.ArrayList;
@@ -103,7 +104,7 @@ public class CreatResearchActivity extends Activity {
                 questions.clear();
                 adapter.notifyDataSetChanged();
                 try {
-                    carrierInst.sendFriendMessage("29d1T1V4Gz2AiTUJa85s6A91w8jFwq9iSbt5NNJgtots", "Hello!");
+                    carrierInst.sendFriendMessage("6dJmbVF4p7xejtBjiwfPvBDb5xRYTjthixxAkTxk3TKE", "Hello!");
                 } catch (ElastosException e) {
                     e.printStackTrace();
                 }
@@ -112,10 +113,14 @@ public class CreatResearchActivity extends Activity {
     }
 
     class ChatActivityObserver implements IChatObserver {
+        @Override
+        public void receiveFriendMessage(String fromId, String message) {
+
+        }
 
         @Override
-        public void receiveMessage(String message) {
-//            analyseReturnData(message);
+        public void receiveFriendRequest(String fromId, UserInfo info, String hello) {
+
         }
     }
 

@@ -1,5 +1,7 @@
 package com.example.helloketty.observer;
 
+import org.elastos.carrier.UserInfo;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,10 +31,17 @@ public class ConcreteChatObserverable implements IChatObserverable {
     }
 
     @Override
-    public void notifyChatObject(String message) {
+    public void onMyFriendMessage(String fromId, String message) {
         for (IChatObserver iChatObserver : data) {
-            iChatObserver.receiveMessage(message);
+            iChatObserver.receiveFriendMessage(fromId, message);
         }
 
+    }
+
+    @Override
+    public void onMyFriendRequest(String fromId, UserInfo info, String hello) {
+        for (IChatObserver iChatObserver : data) {
+            iChatObserver.receiveFriendRequest(fromId, info, hello);
+        }
     }
 }
