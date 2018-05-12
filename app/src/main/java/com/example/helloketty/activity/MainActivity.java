@@ -8,49 +8,61 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.helloketty.R;
+import com.example.helloketty.adapter.FriendsAdapter;
 import com.example.helloketty.adapter.ResearchResultAdapter;
 import com.example.helloketty.entity.ElavenUser;
-import com.example.helloketty.entity.Quesition;
-import com.example.helloketty.entity.QuestionListBean;
 import com.example.helloketty.entity.ResearchList;
 import com.example.helloketty.entity.ResearchListBean;
+import com.example.helloketty.observer.IChatObserver;
+import com.example.helloketty.userinfo.ElavenUserInfoHelper;
 import com.example.helloketty.userinfo.TestOptions;
 import com.example.helloketty.util.JsonFileLoader;
+import com.example.helloketty.util.MyApplicatioin;
 import com.example.helloketty.util.Utils;
 import com.google.gson.Gson;
 
 import org.elastos.carrier.AbstractCarrierHandler;
 import org.elastos.carrier.Carrier;
 import org.elastos.carrier.ConnectionStatus;
+import org.elastos.carrier.FriendInfo;
+import org.elastos.carrier.PresenceStatus;
 import org.elastos.carrier.UserInfo;
 import org.elastos.carrier.exceptions.ElastosException;
 
 import com.example.helloketty.util.Synchronizer;
 
-public class MainActivity extends ElavenActivity {
+import java.util.List;
+
+public class MainActivity extends Activity {
     public static int SEND_FRIEND_MESSAGE = 0x02;
-    public final static int MY_MESSAGE = 0X01;
+    public final static int MY_MESSAGE = 0X11;
     private ListView listView_searchresult;
     private ResearchListBean the_research_list;
-    private ElavenUser elaven_user = new ElavenUser();
-    private String result = "";
-    private ResearchResultAdapter messageAdapter;
+    private FriendsAdapter messageAdapter;
+    private EditText editTeext;
+    private List<FriendInfo> friends;
+    private String resultMessage = "";
 
     Carrier carrierInst = null;
     String carrierAddr = null;
     String carrierUserID = null;
     Gson gson = new Gson();
 
+    private MainChatObserver mainChatObserver;
+
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case MY_MESSAGE:
-                    messageAdapter = new ResearchResultAdapter(getBaseContext(), the_research_list.getLists());
+                    messageAdapter = new FriendsAdapter(getBaseContext(), friends);
                     listView_searchresult.setAdapter(messageAdapter);
                     listView_searchresult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -60,6 +72,9 @@ public class MainActivity extends ElavenActivity {
                             startActivity(intent);
                         }
                     });
+                    if (friends.size() > 0) {
+                        editTeext.setText(friends.get(0).getUserId());
+                    }
                     break;
                 default:
                     break;
@@ -69,45 +84,19 @@ public class MainActivity extends ElavenActivity {
     };
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == SEND_FRIEND_MESSAGE) {
-            if (data != null) {
-                result = data.getExtras().getString("data_research");
-                Log.e("onActivityResultMain", result);
-                ResearchList researchList = gson.fromJson(result, ResearchList.class);
-                the_research_list.getLists().add(researchList);
-                messageAdapter.notifyDataSetChanged();
-                try {
-                    carrierInst.sendFriendMessage("M9MVQMg55E9jiY3KUzXA6Y9QyFXtQ5osmyRPxTD2eiwJFcNpLgUA", result);
-                } catch (ElastosException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.i(Utils.log_page_tag, "Arrive main page");
-
-        // 初始化数据
-        initDate();
-        // 接受消息
-        TestOptions options = new TestOptions(Utils.getAppPath(this.getApplicationContext()));
-        TestHandler handler = new TestHandler();
-
         try {
-            carrierInst = Carrier.getInstance(options, handler);
-            carrierAddr = elaven_user.getAddress();
-            carrierUserID = elaven_user.getUser_id();
-        } catch (ElastosException e) {
+            carrierInst = Carrier.getInstance();
+            ;
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
+        mainChatObserver = new MainChatObserver();
+        MyApplicatioin.getInstance().addChatObserver(mainChatObserver);
+        initDate();
     }
 
     private void initDate() {
@@ -119,10 +108,8 @@ public class MainActivity extends ElavenActivity {
 
     private void initView() {
         listView_searchresult = (ListView) findViewById(R.id.listView_searchresult);
-        handler.sendEmptyMessage(MY_MESSAGE);
-
         // 提交按钮
-        TextView button = (TextView) findViewById(R.id.tv_commit);
+        ImageView button = (ImageView) findViewById(R.id.tv_commit);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,44 +117,45 @@ public class MainActivity extends ElavenActivity {
                 startActivityForResult(intent, SEND_FRIEND_MESSAGE);
             }
         });
+        editTeext = (EditText) findViewById(R.id.user_add);
+        try {
+            friends = carrierInst.getFriends();
+            handler.sendEmptyMessage(MY_MESSAGE);
+        } catch (ElastosException e) {
+            e.printStackTrace();
+        }
+        TextView textView = (TextView) findViewById(R.id.tv_addfriend);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    carrierInst.addFriend("3XRrjAMXF7ga66bZSKWRUVmJm73hE4ZLA89Tg5L3socKRUxipofQ", "auto-accepted!");
+                } catch (ElastosException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
-    static class TestHandler extends AbstractCarrierHandler {
-        Synchronizer synch = new Synchronizer();
-        String from;
-        ConnectionStatus friendStatus;
-        String CALLBACK = "call back";
-
-        public void onReady(Carrier carrier) {
-            synch.wakeup();
-        }
-
-        public void onFriendConnection(Carrier carrier, String friendId, ConnectionStatus status) {
-            Log.i(CALLBACK, "friendid:" + friendId + "connection changed to: " + status);
-            from = friendId;
-            friendStatus = status;
-            if (friendStatus == ConnectionStatus.Connected)
-                synch.wakeup();
-        }
-
-        //2.2 通过好友验证
-        public void onFriendRequest(Carrier carrier, String userId, UserInfo info, String hello) {
-            try {
-
-                if (hello.equals("auto-accepted")) {
-                    carrier.AcceptFriend(userId);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+    class MainChatObserver implements IChatObserver {
 
         @Override
-        //3.2 接受好友信息
-        public void onFriendMessage(Carrier carrier, String fromId, String message) {
-            Log.i(CALLBACK, "address:" + fromId + "connection changed to: " + message);
-        }
+        public void receiveMessage(String message) {
+            resultMessage = message;
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(MainActivity.this, resultMessage, Toast.LENGTH_LONG).show();
+                }
+            });
 
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MyApplicatioin.getInstance().removeChatObserver(mainChatObserver);
     }
 
 }

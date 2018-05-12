@@ -10,6 +10,7 @@ import  org.elastos.carrier.exceptions.ElastosException;
 import com.example.helloketty.entity.ElavenUser;
 import com.example.helloketty.entity.ResearchList;
 import com.example.helloketty.util.JsonFileLoader;
+import com.example.helloketty.util.MyApplicatioin;
 import  com.example.helloketty.util.Synchronizer;
 import  com.example.helloketty.util.Utils;
 import com.google.gson.Gson;
@@ -21,10 +22,34 @@ import java.io.File;
 
 public class ElavenUserInfoHelper {
 
-    public Carrier carrierInst;
+    public static Carrier carrierInst;
     private Context context;
-    //private String userid;
-    //private String address;
+    private String userid;
+    private String address;
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public ElavenUserInfoHelper(Context context) {
         this.context = context;
@@ -38,14 +63,18 @@ public class ElavenUserInfoHelper {
 
             //1.1获得Carrier的实例
             carrierInst = Carrier.getInstance(options, handler);
+            carrierInst.start(1000);
+
 
             //1.2获得Carrier的地址
-            //address = carrierInst.getAddress();
-            //Log.i(Utils.log_info_tag, "address: " + address);
+            address = carrierInst.getAddress();
+            Log.i(Utils.log_info_tag, "address: " + address);
+            this.setAddress(address);
 
             //1.3获得Carrier的用户ID
-            //userid = carrierInst.getUserId();
-            //Log.i(Utils.log_info_tag, "userID: " + userid);
+            userid = carrierInst.getUserId();
+            Log.i(Utils.log_info_tag, "userID: " + userid);
+            this.setUserid(userid);
 
         } catch (ElastosException e) {
             e.printStackTrace();
@@ -57,7 +86,7 @@ public class ElavenUserInfoHelper {
         Synchronizer synch = new Synchronizer();
         String from;
         ConnectionStatus friendStatus;
-        String CALLBACK="call back";
+        String CALLBACK = "call back";
 
         public void onReady(Carrier carrier) {
             synch.wakeup();
@@ -89,6 +118,7 @@ public class ElavenUserInfoHelper {
         public void onFriendMessage(Carrier carrier,String fromId, String message) {
 
             Log.i(CALLBACK,"address:" + fromId + "connection changed to: " + message);
+            MyApplicatioin.getInstance().notifyChatObject(message);
         }
 
     }

@@ -6,25 +6,24 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.helloketty.R;
+import com.example.helloketty.adapter.FriendsAdapter;
 import com.example.helloketty.adapter.ResearchItemListAdapter;
 import com.example.helloketty.entity.Quesition;
 import com.example.helloketty.entity.QuestionListBean;
 import com.example.helloketty.entity.ResearchList;
-import com.example.helloketty.entityutil.QuestionType;
-import com.example.helloketty.userinfo.TestOptions;
-import com.example.helloketty.util.Synchronizer;
-import com.example.helloketty.util.Utils;
+import com.example.helloketty.observer.IChatObserver;
+import com.example.helloketty.userinfo.ElavenUserInfoHelper;
+import com.example.helloketty.util.MyApplicatioin;
 import com.google.gson.Gson;
 
-import org.elastos.carrier.AbstractCarrierHandler;
+
 import org.elastos.carrier.Carrier;
-import org.elastos.carrier.ConnectionStatus;
-import org.elastos.carrier.UserInfo;
 import org.elastos.carrier.exceptions.ElastosException;
 
 import java.util.ArrayList;
@@ -34,27 +33,28 @@ import java.util.ArrayList;
  */
 
 public class CreatResearchActivity extends Activity {
+    public final static int MESSAGECODE = 0x01;
     private TextView buttonCreatItem;
     private TextView txt_sendtoFriend;
     private EditText ed_Title;
     private ListView question_list;
-    public static int MESSAGECODE = 10;
     private ResearchList researchList = new ResearchList();
-    private QuestionListBean questions = new QuestionListBean();
+    private ArrayList<Quesition> questions;
     private Gson gson = new Gson();
     private ResearchItemListAdapter adapter;
-    private String result = "";
+    public Carrier carrierInst;
+
+    private IChatObserver chatActivityObserver;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == MESSAGECODE) {
-            if (data != null) {
-                result = data.getExtras().getString("data");
-                Quesition questionItem = gson.fromJson(result, Quesition.class);
-                questions.getList().add(questionItem);
-                adapter.notifyDataSetChanged();
-            }
+        if (data != null) {
+            Gson gson = new Gson();
+            String result = data.getExtras().getString("dataquestion");
+            Quesition question = gson.fromJson(result, Quesition.class);
+            questions.add(question);
+            adapter.notifyDataSetChanged();
         }
     }
 
@@ -62,14 +62,27 @@ public class CreatResearchActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_research);
+        String flags = getIntent().getStringExtra("dataquestion");
+        questions = new ArrayList<>();
+        if (flags != null) {
+            Quesition questionItem = gson.fromJson(flags, Quesition.class);
+            ed_Title.setText(flags);
+        }
+        carrierInst = Carrier.getInstance();
+
         initView();
     }
 
     public void initView() {
+
+        MyApplicatioin.getInstance().addChatObserver(chatActivityObserver);
+
         buttonCreatItem = (TextView) findViewById(R.id.txt_creatItem);
         txt_sendtoFriend = (TextView) findViewById(R.id.txt_sendtoFriend);
         ed_Title = (EditText) findViewById(R.id.edit_title);
         question_list = (ListView) findViewById(R.id.question_list);
+        adapter = new ResearchItemListAdapter(this.getBaseContext(), questions);
+        question_list.setAdapter(adapter);
         buttonCreatItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,15 +95,36 @@ public class CreatResearchActivity extends Activity {
             public void onClick(View v) {
                 Gson gson = new Gson();
                 Intent intent = new Intent();
-                researchList.setQuesitions(questions.getList());
+                researchList.setQuesitions(questions);
                 researchList.setTitle(ed_Title.getText().toString());
                 researchList.setSummary(ed_Title.getText().toString());
-
                 intent.putExtra("data_research", gson.toJson(researchList));
                 setResult(MainActivity.SEND_FRIEND_MESSAGE, intent);
+                questions.clear();
+                adapter.notifyDataSetChanged();
+                try {
+                    carrierInst.sendFriendMessage("29d1T1V4Gz2AiTUJa85s6A91w8jFwq9iSbt5NNJgtots", "Hello!");
+                } catch (ElastosException e) {
+                    e.printStackTrace();
+                }
             }
         });
-        adapter = new ResearchItemListAdapter(this.getBaseContext(), questions.getList());
-        question_list.setAdapter(adapter);
     }
+
+    class ChatActivityObserver implements IChatObserver {
+
+        @Override
+        public void receiveMessage(String message) {
+//            analyseReturnData(message);
+        }
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MyApplicatioin.getInstance().removeChatObserver(chatActivityObserver);
+
+    }
+
 }

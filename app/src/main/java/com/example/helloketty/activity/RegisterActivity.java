@@ -3,21 +3,33 @@ package com.example.helloketty.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.RadioButton;
 
 import com.example.helloketty.R;
+import com.example.helloketty.adapter.FriendsAdapter;
 import com.example.helloketty.entity.ElavenUser;
+import com.example.helloketty.userinfo.ElavenUserInfoHelper;
 import com.example.helloketty.util.FileUtil;
+import com.example.helloketty.util.MyApplicatioin;
+import com.example.helloketty.util.Synchronizer;
 import com.example.helloketty.util.Utils;
 import com.google.gson.Gson;
 
-public class RegisterActivity extends ElavenActivity {
+import org.elastos.carrier.AbstractCarrierHandler;
+import org.elastos.carrier.Carrier;
+import org.elastos.carrier.ConnectionStatus;
+import org.elastos.carrier.UserInfo;
+import org.elastos.carrier.exceptions.ElastosException;
 
+public class RegisterActivity extends Activity {
     private TextView register_userid;
     private TextView register_address;
     private TextView register_name;
@@ -26,24 +38,30 @@ public class RegisterActivity extends ElavenActivity {
     private TextView register_email;
     private TextView register_region;
     private Button register_save;
+    private String userID = "";
+    private ElavenUserInfoHelper helper;
+
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            register_userid.setText(helper.getUserid());
+            register_address.setText(helper.getAddress());
+            Log.e(helper.getUserid(),helper.getUserid());
+            Log.e(helper.getAddress(),helper.getAddress());
+        }
+
+    };
 
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.register);
-
+        helper = new ElavenUserInfoHelper(RegisterActivity.this);
         Log.i(Utils.log_page_tag, "Arrive register page");
-        //Gson gson = new Gson();
-        //Bundle bundle = this.getIntent().getExtras();
-        //String userJson = bundle.getString("userJson");
-        //elaven_user = gson.fromJson(userJson, ElavenUser.class);
-        Log.i(Utils.log_info_tag, "elaven_user data: " + elavenUser.toString());
-
         initPage();
     }
 
     private void initPage() {
-
         initWidgetsStatus();
         register_save = (Button) findViewById(R.id.register_save);
         register_save.setOnClickListener(new View.OnClickListener() {
@@ -57,35 +75,18 @@ public class RegisterActivity extends ElavenActivity {
     }
 
     private void intentToMain() {
-
         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
         startActivity(intent);
-        finish();
     }
 
     private void initWidgetsStatus() {
         register_userid = (TextView) findViewById(R.id.register_userid_text);
         register_address = (TextView) findViewById(R.id.register_address_text);
-
         register_name = (TextView) findViewById(R.id.register_name_text);
         register_phonenumber = (TextView) findViewById(R.id.register_phonenumber_text);
         register_email = (TextView) findViewById(R.id.register_email_text);
         register_region = (TextView) findViewById(R.id.register_region_text);
-
-        register_userid.setText(elavenUser.getUser_id());
-        register_address.setText(elavenUser.getAddress());
-        register_name.setText(elavenUser.getName());
-        register_phonenumber.setText(elavenUser.getPhone_number());
-        register_email.setText(elavenUser.getEmail());
-        register_region.setText(elavenUser.getRegion());
-
-        if (elavenUser.getGender().equals(R.string.register_gender_male)) {
-            ((RadioButton) findViewById(R.id.register_gender_male)).setChecked(true);
-            ((RadioButton) findViewById(R.id.register_gender_female)).setChecked(false);
-        } else {
-            ((RadioButton) findViewById(R.id.register_gender_male)).setChecked(false);
-            ((RadioButton) findViewById(R.id.register_gender_female)).setChecked(true);
-        }
+        handler.sendEmptyMessageDelayed(5,2000);
     }
 
     private void initUserInfo() {
@@ -96,14 +97,12 @@ public class RegisterActivity extends ElavenActivity {
         register_phonenumber = (TextView) findViewById(R.id.register_phonenumber_text);
         register_email = (TextView) findViewById(R.id.register_email_text);
         register_region = (TextView) findViewById(R.id.register_region_text);
-
-
-        elavenUser.setName(register_name.getText().toString());
-        elavenUser.setGender(register_gender.getText().toString());
-        elavenUser.setPhone_number(register_phonenumber.getText().toString());
-        elavenUser.setEmail(register_email.getText().toString());
-        elavenUser.setRegion(register_region.getText().toString());
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        helper.carrierInst.kill();
 
+    }
 }

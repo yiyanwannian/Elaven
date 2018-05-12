@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -74,8 +75,12 @@ public class CreatQuestionActivity extends Activity {
                 Quesition quesition = new Quesition("aaaa", titleName, QuestionType.SINGLEANSWER, titleName, answers);
                 Gson gson = new Gson();
                 Intent intent = new Intent();
-                intent.putExtra("data", gson.toJson(quesition));
+                Log.e("setOnClickListener", "setOnClickListener");
+                intent.putExtra("dataquestion", gson.toJson(quesition));
+                intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+                intent.setClass(CreatQuestionActivity.this,CreatResearchActivity.class);
                 setResult(CreatResearchActivity.MESSAGECODE, intent);
+//                startActivity(intent);
                 finish();
             }
         });
